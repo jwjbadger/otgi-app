@@ -10,23 +10,19 @@ import SwiftData
 
 @main
 struct otgiApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @StateObject private var bluetoothManager = BluetoothManager()
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(bluetoothManager)
+                
         }
-        .modelContainer(sharedModelContainer)
+        .onChange(of: scenePhase) {
+                    if scenePhase == .background {
+                        bluetoothManager.save()
+                    }
+                }
     }
 }

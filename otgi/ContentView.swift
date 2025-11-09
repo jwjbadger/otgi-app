@@ -5,54 +5,52 @@
 //  Created by jwjbadger on 10/9/25.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var bluetoothManager: BluetoothManager
     @Query private var items: [Item]
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+        VStack {
+            Text(
+                bluetoothManager.bluetoothEnabled
+                ? "Bluetooth is ON" : "Bluetooth is OFF"
+            )
+            .padding()
+            Text(
+                bluetoothManager.connected
+                ? "Bluetooth is CONNECTED" : "Bluetooth is DISCONNECTED"
+            )
+            .padding()
+            Text(
+                "Trip Fuel Usage (Liters): \(bluetoothManager.estimatedTripFuelUsage?.description ?? "No Value")"
+            )
+            .padding()
+            Text(
+                "Received Runcount: \(bluetoothManager.runcount?.description ?? "NO")"
+            )
+            .padding()
+            let tripFuel = bluetoothManager.estimatedTripFuelUsage ?? 0.0
+            let remainingFuelGallons = (80.0 - bluetoothManager.storedTankUsage - tripFuel) * 0.264172
+            Text(
+                "Estimated Remaining Fuel (Gallons): \(remainingFuelGallons)"
+            )
+            .padding()
+            Text(
+                "Estimated Miles Remaining: \(remainingFuelGallons * 17.0)" // Estimated 17 mpg; eventually update this
+            )
+            .padding()
+            Text("Any Errors: \(bluetoothManager.error.debugDescription)")
+                .padding()
+            Button("Fuel Up") {
+                bluetoothManager.storedTankUsage = -1.0 * tripFuel
+            }.padding()
         }
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
 }
 
 #Preview {

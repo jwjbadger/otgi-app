@@ -24,14 +24,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D91256552E98B02900E934C1 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
 		D94B34922E98AD43008434BF /* otgi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = otgi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94B34A12E98AD44008434BF /* otgiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = otgiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94B34AB2E98AD44008434BF /* otgiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = otgiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D91256582E98B07200E934C1 /* Exceptions for "otgi" folder in "otgi" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D94B34912E98AD43008434BF /* otgi */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D94B34942E98AD43008434BF /* otgi */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D91256582E98B07200E934C1 /* Exceptions for "otgi" folder in "otgi" target */,
+			);
 			path = otgi;
 			sourceTree = "<group>";
 		};
@@ -72,12 +86,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D91256542E98B02900E934C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D91256552E98B02900E934C1 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D94B34892E98AD42008434BF = {
 			isa = PBXGroup;
 			children = (
 				D94B34942E98AD43008434BF /* otgi */,
 				D94B34A42E98AD44008434BF /* otgiTests */,
 				D94B34AE2E98AD44008434BF /* otgiUITests */,
+				D91256542E98B02900E934C1 /* Frameworks */,
 				D94B34932E98AD43008434BF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -395,11 +418,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = otgi/otgiDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3CGRL2LQB4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = otgi/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +454,8 @@
 				DEVELOPMENT_TEAM = 3CGRL2LQB4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = otgi/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -450,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3CGRL2LQB4;
@@ -469,6 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3CGRL2LQB4;
@@ -487,6 +517,7 @@
 		D94B34BC2E98AD44008434BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3CGRL2LQB4;
